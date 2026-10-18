@@ -1,0 +1,89 @@
+{%- comment -%}
+  Explore With Intention: one-row category strip with 1px line icons.
+  Links default to /collections/<handle>; edit the handles below to match your store.
+{%- endcomment -%}
+<section class="ewi" id="ewi-{{ section.id }}">
+  <style>
+    .ewi{--ewi-ink:#1c1b1a;--ewi-mute:#8a8580;--ewi-line:#e6e2dc;--ewi-accent:#6b4eff;--ewi-bg:#fff;
+      background:var(--ewi-bg);padding:56px 20px 48px;font-family:inherit;color:var(--ewi-ink)}
+    .ewi__title{margin:0 0 36px;text-align:center;font-size:12px;font-weight:500;letter-spacing:.32em;text-transform:uppercase}
+    .ewi__row{display:flex;justify-content:center;gap:4px;max-width:1280px;margin:0 auto;padding:0;list-style:none;
+      overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+    .ewi__row::-webkit-scrollbar{display:none}
+    .ewi__item{flex:0 0 auto;scroll-snap-align:center}
+    .ewi__link{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;width:112px;padding:18px 0 14px;
+      color:var(--ewi-mute);text-decoration:none;border-radius:14px;overflow:hidden;
+      transition:color .3s ease,background-color .3s ease,transform .3s cubic-bezier(.2,.8,.2,1);
+      -webkit-tap-highlight-color:transparent}
+    .ewi__icon{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:.6667;stroke-linecap:round;stroke-linejoin:round;
+      transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+    .ewi__icon *{stroke-dasharray:1;stroke-dashoffset:0}
+    .ewi__label{position:relative;font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+    .ewi__label::after{content:"";position:absolute;left:50%;right:50%;bottom:-6px;height:1px;background:var(--ewi-accent);
+      transition:left .3s ease,right .3s ease}
+    .ewi__link:hover,.ewi__link:focus-visible{color:var(--ewi-accent);background:rgba(107,78,255,.05);transform:translateY(-3px)}
+    .ewi__link:hover .ewi__icon,.ewi__link:focus-visible .ewi__icon{transform:scale(1.08)}
+    .ewi__link:hover .ewi__icon *,.ewi__link:focus-visible .ewi__icon *{animation:ewi-draw .8s ease forwards}
+    .ewi__link:hover .ewi__label::after,.ewi__link:focus-visible .ewi__label::after,
+    .ewi__link.is-active .ewi__label::after{left:0;right:0}
+    .ewi__link:focus-visible{outline:1px solid var(--ewi-accent);outline-offset:2px}
+    .ewi__link:active{transform:translateY(0) scale(.94)}
+    .ewi__link.is-active{color:var(--ewi-accent)}
+    .ewi__ripple{position:absolute;border-radius:50%;width:12px;height:12px;margin:-6px 0 0 -6px;pointer-events:none;
+      border:1px solid var(--ewi-accent);opacity:.6;animation:ewi-ripple .6s ease-out forwards}
+    @keyframes ewi-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+    @keyframes ewi-ripple{to{transform:scale(14);opacity:0}}
+    @media (max-width:900px){.ewi__row{justify-content:flex-start}}
+    @media (prefers-reduced-motion:reduce){.ewi *{animation:none!important;transition:none!important}}
+  </style>
+
+  <h2 class="ewi__title">Explore with intention</h2>
+  <ul class="ewi__row">
+    {%- assign items = 'Money|money,Health|health,Love|love,Business|business,Career|career,Spirituality|spirituality,Stress|stress,Anxiety|anxiety,Overthinking|overthinking,Protection|protection,Mindset|mindset' | split: ',' -%}
+    {%- for entry in items -%}
+      {%- assign parts = entry | split: '|' -%}
+      <li class="ewi__item">
+        <a class="ewi__link" href="{{ routes.collections_url }}/{{ parts[1] }}" data-ewi>
+          <svg class="ewi__icon" viewBox="0 0 24 24" aria-hidden="true">
+            {%- case parts[1] -%}
+              {%- when 'money' -%}<circle cx="12" cy="12" r="9" pathLength="1"/><path pathLength="1" d="M9 7.5h6M9 11h6M9 7.5c3.5 0 3.5 3.5 0 3.5H9l5 5.5"/>
+              {%- when 'health' -%}<path pathLength="1" d="M3 12h4l2-5 4 10 2-5h6"/>
+              {%- when 'love' -%}<path pathLength="1" d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>
+              {%- when 'business' -%}<rect pathLength="1" x="3" y="8" width="18" height="12" rx="1.5"/><path pathLength="1" d="M9 8V6h6v2M3 13h18"/>
+              {%- when 'career' -%}<path pathLength="1" d="M3 17l6-6 4 4 8-8M15 7h6v6"/>
+              {%- when 'spirituality' -%}<path pathLength="1" d="M12 5c2 3 2 7 0 11-2-4-2-8 0-11zM12 16c-1-4-4-6-8-6 0 4 3 6 8 6zM12 16c1-4 4-6 8-6 0 4-3 6-8 6zM12 20v1"/>
+              {%- when 'stress' -%}<path pathLength="1" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/>
+              {%- when 'anxiety' -%}<path pathLength="1" d="M3 9h11a3 3 0 1 0-3-3M3 15h15a3 3 0 1 1-3 3M3 12h8"/>
+              {%- when 'overthinking' -%}<path pathLength="1" d="M12 12c0-1 1-1.5 1.5-1s.5 2-1 2.5-3-.5-3-2.5 2-4 4.5-3.5 4 3 3.5 5.5-3 5-6 5-6-3-6-7"/>
+              {%- when 'protection' -%}<path pathLength="1" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>
+              {%- when 'mindset' -%}<path pathLength="1" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.8c.6.5 1 1.2 1 2.2h5c0-1 .4-1.7 1-2.2A6 6 0 0 0 12 3z"/>
+            {%- endcase -%}
+          </svg>
+          <span class="ewi__label">{{ parts[0] }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <script>
+    (function(){
+      var root=document.getElementById('ewi-{{ section.id }}');
+      if(!root)return;
+      var links=root.querySelectorAll('[data-ewi]');
+      links.forEach(function(a){
+        a.addEventListener('click',function(e){
+          var r=a.getBoundingClientRect(),d=document.createElement('span');
+          d.className='ewi__ripple';d.style.left=(e.clientX-r.left)+'px';d.style.top=(e.clientY-r.top)+'px';
+          a.appendChild(d);setTimeout(function(){d.remove()},650);
+          links.forEach(function(l){l.classList.remove('is-active')});a.classList.add('is-active');
+          if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0||a.hasAttribute('data-preview'))return;
+          e.preventDefault();setTimeout(function(){location.href=a.href},280);
+        });
+      });
+    })();
+  </script>
+</section>
+
+{% schema %}
+{ "name": "Explore with intention", "settings": [], "presets": [{ "name": "Explore with intention" }] }
+{% endschema %}
