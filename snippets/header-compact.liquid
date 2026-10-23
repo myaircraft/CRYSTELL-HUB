@@ -1,0 +1,30 @@
+{%- comment -%}
+  Compact header: tighter vertical padding, smaller logo aligned with the search box,
+  purple 2px focus ring + glow on search, bold typed text, bold menu, no HOME link.
+  Rendered from snippets/header-logo.liquid.
+{%- endcomment -%}
+<style>
+  .hsb__form { transition: box-shadow .2s ease, border-color .2s ease; }
+  .hsb__form:focus-within { border-color: #6b4eff !important; box-shadow: 0 0 0 1px #6b4eff, 0 0 14px 3px rgba(107, 78, 255, .35); }
+  .hsb__input:focus { box-shadow: none !important; outline: 0 !important; }
+  .hsb__input:not(:placeholder-shown) { font-weight: 700; }
+
+  .header:has(.hsb) .menu__item,
+  .header:has(.hsb) .menu__item .btn-text { font-weight: 700 !important; }
+  .header:has(.hsb) .header__menu li:has(> a[href="/"]),
+  .header:has(.hsb) .header__menu li:has(> details > summary[data-link="/"]) { display: none; }
+
+  @media screen and (min-width: 1024px) {
+    .header.header:has(.hsb) {
+      --section-padding-top: 6px;
+      --section-padding-bottom: 6px;
+      row-gap: 0 !important;
+      align-items: center;
+    }
+    .header:has(.hsb) .header__logo { align-self: center; }
+    .header:has(.hsb) .header__logo img.logo { max-height: 38px !important; max-width: none !important; width: auto !important; height: auto !important; }
+    .header:has(.hsb) .hsb { align-self: center; }
+    .header:has(.hsb) .hsb__form { height: 42px; }
+    .header:has(.hsb) .header__navigation { margin-top: -2px; }
+  }
+</style>
